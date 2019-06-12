@@ -1,0 +1,4 @@
+﻿  SolarEdge_Web.cpp
+C:\Users\thf-m\OneDrive\Documents\vs_programme\SolarEdge_Web\SolarEdge_Web\SolarEdge_Web.cpp(60,1): warning C4996:  'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winsock2.h(2219): message :  see declaration of 'gethostbyname'
+  SolarEdge_Web.vcxproj -> C:\Users\thf-m\OneDrive\Documents\vs_programme\SolarEdge_Web\Debug\SolarEdge_Web.exe
