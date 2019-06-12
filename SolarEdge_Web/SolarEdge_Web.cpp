@@ -57,8 +57,8 @@ int main()
 #pragma region Server_setting
 
 	//char ip_addr[20] = "217.68.152.65";
-	struct hostent* hp = gethostbyname("www.dytt8.net");
-	//struct hostent* hp = gethostbyname("monitoringapi.solaredge.com");
+	//struct hostent* hp = gethostbyname("www.dytt8.net");
+	struct hostent* hp = gethostbyname("monitoringapi.solaredge.com");
 	SOCKADDR_IN srv_Addr;									//sturcture for ip address
 	memcpy(&srv_Addr.sin_addr, hp->h_addr, 4);
 	srv_Addr.sin_family = AF_INET;							//stipulate the family format
@@ -100,7 +100,7 @@ int main()
 	std::cout << "\n***************************************************************";
 	std::cout << "\n******************Time and Information*************************\n*******************";
 	std::cout << st.wMonth << "/" << st.wDay << "/" << st.wYear << " " << st.wHour << ":" << st.wMinute << ":" << st.wSecond;
-	std::cout << "**************************\n**********";
+	std::cout << "***************************\n************";
 	std::cout << "Server : " << "SolarEdge" << " Port: " << "80" << "******************\n";
 	std::cout << "***************************************************************\n\n";
 
@@ -112,8 +112,8 @@ int main()
 
 #pragma region Request
 
-	//std::string request = "GET /site/969566/details?api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT HTTP/1.1\r\nHost:monitoringapi.solaredge.com\r\nConnection:Close\r\n\r\n";
-	std::string request = "GET / HTTP/1.1\r\nHost:www.dytt8.net\r\nConnection:Close\r\n\r\n";
+	std::string request = "GET /site/969566/details?api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT HTTP/1.1\r\nHost:monitoringapi.solaredge.com\r\nConnection:Close\r\n\r\n";
+	//std::string request = "GET / HTTP/1.1\r\nHost:www.dytt8.net\r\nConnection:Close\r\n\r\n";
 	while (true)
 	{
 		iRet = send(clientSocket, request.c_str(), request.size(), 0);								//try send the data
