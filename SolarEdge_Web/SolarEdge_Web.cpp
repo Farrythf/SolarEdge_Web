@@ -112,7 +112,7 @@ int main()
 
 #pragma region Request
 
-	std::string request = "GET /site/969566/details?api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT HTTP/1.1\r\nHost:monitoringapi.solaredge.com\r\nConnection:Close\r\n\r\n";
+	std::string request = "GET /site/969566/details?api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT HTTP/1.1\r\nHost:monitoringapi.solaredge.com\r\n\r\n";
 	//std::string request = "GET / HTTP/1.1\r\nHost:www.dytt8.net\r\nConnection:Close\r\n\r\n";
 	while (true)
 	{
@@ -146,23 +146,25 @@ int main()
 
 	int bytesRead = 0;
 	int ret = 1;
-	while (ret > 0) {
-		ret = recv(clientSocket, buff + bytesRead, len - bytesRead, 0);
-		if (ret > 0) {
-			bytesRead += ret;
+	while (1)
+	{
+		while (ret > 0) {
+			ret = recv(clientSocket, buff + bytesRead, len - bytesRead, 0);
+			if (ret > 0) {
+				bytesRead += ret;
+			}
+			if (len - bytesRead < 100) {
+				len = len * 2;
+				char* newbuff = new char[len];
+				memset(newbuff, 0, len);
+				memcpy(newbuff, buff, len / 2);
+				delete[] buff;
+				buff = newbuff;
+			}
 		}
-		if (len - bytesRead < 100) {
-			len = len * 2;
-			char* newbuff = new char[len];
-			memset(newbuff, 0, len);
-			memcpy(newbuff, buff, len / 2);
-			delete[] buff;
-			buff = newbuff;
-		}
+		buff[bytesRead] = '\0';
+		std::cout << buff;
 	}
-	buff[bytesRead] = '\0';
-	std::cout << buff;
-	
 
 	/*char Rev_data[1000];
 	while (true)
