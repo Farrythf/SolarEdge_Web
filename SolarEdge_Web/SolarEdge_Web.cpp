@@ -59,6 +59,7 @@ int main()
 	//char ip_addr[20] = "217.68.152.65";
 	//struct hostent* hp = gethostbyname("www.dytt8.net");
 	struct hostent* hp = gethostbyname("monitoringapi.solaredge.com");
+	//struct hostent* hp = gethostbyname("monitoringapi.solaredge.com/site/969566/details?api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT");
 	SOCKADDR_IN srv_Addr;									//sturcture for ip address
 	memcpy(&srv_Addr.sin_addr, hp->h_addr, 4);
 	srv_Addr.sin_family = AF_INET;							//stipulate the family format
@@ -112,7 +113,7 @@ int main()
 
 #pragma region Request
 
-	std::string request = "GET /site/969566/details?api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT HTTP/1.1\r\nHost:monitoringapi.solaredge.com\r\n\r\n";
+	std::string request = "GET /site/969566/power?startTime=2019-06-10%2011:00:00&endTime=2019-06-10%2013:00:00&api_key=KR647NZKDEF2ILKO8B8OG3E50UL0IMJT HTTP/1.1\r\nHost:monitoringapi.solaredge.com\r\n\r\n";
 	//std::string request = "GET / HTTP/1.1\r\nHost:www.dytt8.net\r\nConnection:Close\r\n\r\n";
 	while (true)
 	{
@@ -146,25 +147,22 @@ int main()
 
 	int bytesRead = 0;
 	int ret = 1;
-	while (1)
-	{
-		while (ret > 0) {
-			ret = recv(clientSocket, buff + bytesRead, len - bytesRead, 0);
-			if (ret > 0) {
-				bytesRead += ret;
-			}
-			if (len - bytesRead < 100) {
-				len = len * 2;
-				char* newbuff = new char[len];
-				memset(newbuff, 0, len);
-				memcpy(newbuff, buff, len / 2);
-				delete[] buff;
-				buff = newbuff;
-			}
+	while (ret > 0) {
+		ret = recv(clientSocket, buff + bytesRead, len - bytesRead, 0);
+		if (ret > 0) {
+			bytesRead += ret;
 		}
+		if (len - bytesRead < 100) {
+			len = len * 2;
+			char* newbuff = new char[len];
+			memset(newbuff, 0, len);
+			memcpy(newbuff, buff, len / 2);
+			delete[] buff;
+			buff = newbuff;
+		}
+	}
 		buff[bytesRead] = '\0';
 		std::cout << buff;
-	}
 
 	/*char Rev_data[1000];
 	while (true)
